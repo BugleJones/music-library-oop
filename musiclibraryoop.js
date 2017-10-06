@@ -1,6 +1,3 @@
-const util = require('util');
-const inspect = (object, depth = 1) => console.log(util.inspect(object, { depth, colors: true, showHidden: true }));
-
 const propSumReducer = prop => (acc, i) => acc + i[prop];
 
 class TrackCollection extends Array {
@@ -49,7 +46,6 @@ class Track {
 
 
 function TrackCollection() {
-    console.log("TrackCollection::ctor");
     this.tracks = []
 }
 
@@ -63,7 +59,6 @@ TrackCollection.prototype.addTrack = function(track) {
 
 const Library = function(name, creator) {
     TrackCollection.call(this);
-    console.log("Library::ctor");
     this.name = name;
     this.creator = creator;
     this.playlists = [];
@@ -83,7 +78,6 @@ Library.prototype.toString = function() {
 
 function Playlist(playlistName) {
     TrackCollection.call(this);
-    console.log("Playlist::ctor");
     this.playlistName = playlistName;
 }
 Playlist.prototype = Object.create(TrackCollection.prototype);
@@ -102,12 +96,9 @@ const Track = function(title, rating, length) {
 }
 
 
-const library = new Library('My Awesome Library', 'A guy');
-library.addTrack(new Track('Song 2', 5.0, 4.3));
-const playlist = new Playlist('Sad songs');
-playlist.addTrack(new Track('Sad Song', 2.1, 5.0));
+const library = new Library('Slow Hands', 'Hand Solo');
+library.addTrack(new Track('R2D3', 5.0, 180));
+library.addTrack(new Track('C3PNo', 4.0, 240))
+const playlist = new Playlist('Humble Bumble');
+playlist.addTrack(new Track('So Bumbly Today', 3.0, 200));
 library.addPlaylist(playlist);
-
-playlist.averageRating = 5
-console.log(playlist.averageRating)
-inspect(playlist, 2)
